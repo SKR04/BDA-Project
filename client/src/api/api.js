@@ -1,12 +1,24 @@
 import axios from "axios";
+// require("dotenv");
+import dotenv from "dotenv";
 
-const API_URL = "http://localhost:8080"; // Update this with your actual backend URL
+dotenv.config();
+const API_URL = process.env.API_URL; // Update this with your actual backend URL
+console.log(API_URL);
 
 export const loginUser = async (userId) => {
   try {
-    const response = await axios.post(`${API_URL}/api/loginUser`, {
-      user_id: userId,
-    });
+    const response = await axios.post(
+      `${API_URL}/api/loginUser`,
+      {
+        user_id: userId,
+      },
+      {
+        headers: {
+          Authorization: "",
+        },
+      }
+    );
     console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
@@ -16,9 +28,15 @@ export const loginUser = async (userId) => {
 
 export const getItemRecommendations = async (courseId) => {
   try {
-    const response = await axios.post(`${API_URL}/api/item`, {
-      course_id: courseId,
-    });
+    const response = await axios.post(
+      `${API_URL}/api/item`,
+      {
+        course_id: courseId,
+      },
+      {
+        Authorization: "",
+      }
+    );
     console.log(response.data.courses);
     return response.data.courses;
   } catch (error) {
